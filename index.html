@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le meilleur site web du monde</title>
+
+    <script src="./parameters.js"></script>
+
+    <script src="./renderer.js"></script>
+    <script src="./scene/scene.js"></script>
+    <script src="./entity/robot.js"></script>
+</head>
+<body>
+    <div style="display:none">
+        <img id="drone-image" src="./assets/drone.png">
+    </div>
+    <canvas id="drawingSurface" width="800" height="800"></canvas>
+
+    <script>
+        const droneImage = document.getElementById('drone-image');
+        const ctx = document.getElementById('drawingSurface').getContext('2d');
+
+        const scene = new Scene();
+        for(let i = 0; i < 100; ++i) {
+            const x = Math.floor(Math.random() * ((parameters.grid_size / parameters.square_size) - 2)) + 1;
+            const y = Math.floor(Math.random() * ((parameters.grid_size / parameters.square_size) - 2)) + 1;
+            scene.addEntity(new Robot(x, y));
+        }
+        
+        setInterval(() => {
+            scene.update();
+            scene.render(ctx);
+        }, 50);
+    </script>
+</body>
+</html>
